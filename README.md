@@ -4,8 +4,7 @@ LosslessCon
 I want to make it by using TideSDK which I think it will be *fun*^^
 
 I just want it to be simple and usefull. Only allow user to do losses converter which means there is no much
-option to set convert parameters
-
+option to set convert parameters. 
 
 how to build
 ---------------
@@ -19,3 +18,9 @@ support platform
 -----------------
 * windows
 * do not support ubuntu right now because in ubuntu commandline is very convenient.
+
+
+Why I build this
+-------------------
+I want to convert .rmvb file to .mp4 file, so I can view it on my phone. 
+Because I do not want to remeber the parameters to use FFMPEG, so I build this GUI
