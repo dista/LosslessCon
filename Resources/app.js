@@ -345,7 +345,7 @@ $(function(){
         	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:240"]);
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
-        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-preset", "veryfast"]);
         	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
         }
         else if(transSetting == "320p")
@@ -354,7 +354,7 @@ $(function(){
         	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:320"]);
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
-        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-preset", "veryfast"]);
         	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
         }
         else if(transSetting == "480p")
