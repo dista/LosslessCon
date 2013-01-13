@@ -24,4 +24,5 @@ support platform
 Why I build this
 -------------------
 I want to convert .rmvb file to .mp4 file, so I can view it on my phone. 
-Because I do not want to remeber the parameters to use FFMPEG, so I build this GUI
+FFMPEG is powerful, but it is tedious to use, you need to type the commandline everytime and you may forget
+ the commandline parameters. Use this GUI, you may feel better.
