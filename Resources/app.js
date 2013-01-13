@@ -305,6 +305,11 @@ $(function(){
 		var targetId = $(this).data("target");
 
 		$("#" + targetId).removeClass('view-hide');
+
+		if(targetId == "log-view")
+		{
+			$("#log-info").scrollTop($("#log-info")[0].scrollHeight);
+		}
 	});
 
 	$("#start").click(function(){
@@ -327,10 +332,16 @@ $(function(){
 
         var self = $(this);
 		startAndLog(cmd, function(){
+			$("#stop").addClass("hide");
 			$(self).removeClass("disabled").html("Start");
 		});
 
+		$("#stop").removeClass("hide");
 		$(this).addClass("disabled").html("Converting...");
+	});
+
+	$("#stop").click(function(){
+		getMediaInfoProcess.kill();
 	});
 }
 );
