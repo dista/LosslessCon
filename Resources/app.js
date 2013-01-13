@@ -321,14 +321,73 @@ $(function(){
         var sourcePath = $("#source-file").val();
         var baseDir = win32GetBaseDir(sourcePath);
 		var fileName = win32PathLastPart(sourcePath);
-		var dstFileName = getFileBaseName(fileName) + "." + $("#format").val();
 
-		cmd = [FFMPEG, "-y", "-i", sourcePath,
-		      "-qscale", 0,
-		      "-acodec", $("#acodec").val(),
-		      "-vcodec", $("#vcodec").val(),
-		      baseDir + "\\" + dstFileName
-		      ];
+		var cmd = [FFMPEG, "-y", "-i", sourcePath];
+		var transSetting = $("#trans-setting").val();
+
+		var commonAudioSetting = ["-acodec", "libvo_aacenc", "-ac", "2", "-ar", "48000", "-ab", "160k"];
+
+		//x264 preset:
+		//ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow, placebo
+		var commonVideoSetting = ["-r", "30", "-vcodec", "libx264"];
+
+        if(transSetting == "copy")
+        {
+        	$.merge(cmd, ["-acodec", "copy", "-vcodec", "copy"]);
+        }
+        else if(transSetting == "same_quality")
+        {
+        	$.merge(cmd, ["-acodec", "libvo_aacenc", "-vcodec", "libx264", "-qscale", "0"]);
+        }
+        else if(transSetting == "240p")
+        {
+        	//320x240
+        	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:240"]);
+        	$.merge(cmd, commonAudioSetting);
+        	$.merge(cmd, commonVideoSetting);
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
+        }
+        else if(transSetting == "320p")
+        {
+        	//480x320
+        	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:320"]);
+        	$.merge(cmd, commonAudioSetting);
+        	$.merge(cmd, commonVideoSetting);
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
+        }
+        else if(transSetting == "480p")
+        {
+        	//640x480
+        	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:480"]);
+        	$.merge(cmd, commonAudioSetting);
+        	$.merge(cmd, commonVideoSetting);
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
+        }
+        else if(transSetting == "720p")
+        {
+        	//1280x720
+        	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:720"]);
+        	$.merge(cmd, commonAudioSetting);
+        	$.merge(cmd, commonVideoSetting);
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
+        }
+        else if(transSetting == "1080p")
+        {
+        	//1920x1080
+        	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:1080"]);
+        	$.merge(cmd, commonAudioSetting);
+        	$.merge(cmd, commonVideoSetting);
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "high", "-level", "41"])
+        }
+
+		var dstFileName = getFileBaseName(fileName) + "-" + transSetting + "." + $("#format").val();
+
+		cmd.push(baseDir + "\\" + dstFileName);
 
         var self = $(this);
 		startAndLog(cmd, function(){

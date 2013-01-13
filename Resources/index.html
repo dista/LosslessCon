@@ -37,22 +37,20 @@
             <input type="text" style='height: 30px; width: 500px;' id='source-file'/>
           </p>
           <p class="s1">Transcoding Setting</p>
-          <p>Audio codec</p>
           <p>
-            <select id="acodec">
-              <option value="copy">Same as input</option>
-              <option value="libvo_aacenc">AAC</option>
-              <option value="libmp3lame">MP3</option>
+             <p>
+            <select id="trans-setting">
+              <option value="copy">Copy</option>
+              <option value="same_quality">Same quality</option>
+              <option value="240p">240p</option>
+              <option value="320p">320p</option>
+              <option value="480p">480p</option>
+              <option value="720p">720p</option>
+              <option value="1080p">1080p</option>
             </select>
+             </p>
           </p>
-          <p>Video codec</p>
-          <p>
-            <select id='vcodec'>
-              <option value="copy">Same as input</option>
-              <option value="libx264">H.264</option>
-            </select>
-          </p>
-          <p>Format</p>
+          <p class="s1">Output Format</p>
           <p>
             <select id="format">
               <option value="mp4">Mp4</option>
