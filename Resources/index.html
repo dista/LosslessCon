@@ -32,7 +32,7 @@
           <p class='s1'>Input path</p>
           <p>
             <input type="text" style='height: 30px; width: 500px; vertical-align: middle;' id='source-file'/>
-            <button class="btn btn-small" id="open-file" type="button" data-title="Open the src video file for convert" data-placement="right" data-toggle="modal" data-target="#file-selector" style='position: relative; top: -6px;'>Choose</button>
+            <button class="btn btn-small" id="open-file" type="button" style='position: relative; top: -6px;'>Choose</button>
           </p>
           <p class="s1">Transcoding Setting</p>
           <p>
@@ -59,17 +59,6 @@
             <a class='btn btn-primary' href="#" id='start'>Start</a>
             <a class="btn hide btn-danger" id='stop'>Stop</a>
           </p>
-        </div>
-        <div id="file-selector" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="file selector" aria-hidden="true">
-        	<div class="modal-header">
-        		<h3>Please choose a file ...</h3>
-        	</div>
-        	<div class="modal-body" id="file-lister">
-            </div>
-            <div class="modal-footer">
-            	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            	<button class="btn btn-primary" id="select-file">Select</button>
-            </div>
         </div>
       </div>
       <div id='log-view' class='views view-hide'>

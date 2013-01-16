@@ -103,6 +103,7 @@ function getFileBaseName(filename)
 
 	return filename;
 }
+/* the following code is used to build a custom dialog, but it is slow, so we do not use it any longer 
 
 //######Object alias##########//
 Tfs = Ti.Filesystem;
@@ -247,6 +248,7 @@ FileSystemLister.prototype.createItem = function(f)
 FileSystemLister.prototype.createId = function(p){
 	return ("fi-" + p).replace(/:/g,"-").replace(/\\/g, "").replace(/\//g, "");
 }
+*/
 
 
 // global. ugly.. I know
@@ -285,18 +287,17 @@ $(function(){
 
 	$("#open-file").tooltip();
 
-	var fsLister = new FileSystemLister($("#file-lister"));
-	$("#open-file").click(function(){
-		fsLister.listRoot();
-	});
-
-	$("#select-file").click(function(){
-		if(fsLister.selectedFile != "")
-		{
-	    	$("#file-selector").modal("hide");
-	    	displayMediaFileInfo(fsLister.selectedFile);
-	    }		
-	});
+    $("#open-file").click(function(){
+    	Ti.UI.getCurrentWindow().openFileChooserDialog(function(data){
+    		if(data.length > 0)
+    		{
+    			displayMediaFileInfo(data[0]);
+    		}
+    	}, {
+    		"multiple": false,
+    		"title": "Please choose a file"
+    	});
+    });
 
 	$(".nav li").click(function(){
 		$(".nav li").removeClass("active");
@@ -329,7 +330,7 @@ $(function(){
 
 		//x264 preset:
 		//ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow, placebo
-		var commonVideoSetting = ["-r", "30", "-vcodec", "libx264"];
+		var commonVideoSetting = ["-r", "30", "-vcodec", "libx264", "-keyint_min", "250"];
 
         if(transSetting == "copy")
         {
@@ -345,8 +346,8 @@ $(function(){
         	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:240"]);
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
-        	$.merge(cmd, ["-preset", "veryfast"]);
-        	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
         }
         else if(transSetting == "320p")
         {
@@ -354,8 +355,8 @@ $(function(){
         	$.merge(cmd, ["-vf", "scale=trunc(oh*a/2)*2:320"]);
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
-        	$.merge(cmd, ["-preset", "veryfast"]);
-        	$.merge(cmd, ["-profile:v", "baseline", "-level", "13"])
+        	$.merge(cmd, ["-preset", "fast"]);
+        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
         }
         else if(transSetting == "480p")
         {
@@ -364,7 +365,7 @@ $(function(){
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
         	$.merge(cmd, ["-preset", "fast"]);
-        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
+        	$.merge(cmd, ["-profile:v", "main", "-level", "30"])
         }
         else if(transSetting == "720p")
         {
@@ -373,7 +374,7 @@ $(function(){
         	$.merge(cmd, commonAudioSetting);
         	$.merge(cmd, commonVideoSetting);
         	$.merge(cmd, ["-preset", "fast"]);
-        	$.merge(cmd, ["-profile:v", "baseline", "-level", "30"])
+        	$.merge(cmd, ["-profile:v", "main", "-level", "30"])
         }
         else if(transSetting == "1080p")
         {
