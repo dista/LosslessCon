@@ -336,6 +336,11 @@ $(function(){
         {
         	$.merge(cmd, ["-acodec", "copy", "-vcodec", "copy"]);
         }
+        else if(transSetting == "copy_video")
+        {
+        	$.merge(cmd, ["-vcodec", "copy"]);
+        	$.merge(cmd, commonAudioSetting);
+        }
         else if(transSetting == "same_quality")
         {
         	$.merge(cmd, ["-acodec", "libvo_aacenc", "-vcodec", "libx264", "-qscale", "0"]);
